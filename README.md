@@ -19,3 +19,4 @@ module.exports = {
     }  
 }
 ```
+测试和git时注意，上传文件保存在server/upload，上传后数据库会有记录，目前没有实现文件删除功能，git add时务必忽略upload里的文件，避免上传太多无关文件
