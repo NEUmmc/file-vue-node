@@ -21,17 +21,27 @@
     <br />
     <br />
     <br />
-    <el-table :data="tableData" style="width: 100%">
+    <el-table size='medium' :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
       <el-table-column prop="id" label="ID" width="100"></el-table-column>
       <el-table-column prop="name" label="文件名" width="600"></el-table-column>
       <el-table-column prop="time" label="上传时间"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <!-- <el-button>在线阅读</el-button> -->
-          <el-button type="danger" @click="download(scope.row)">下载</el-button>
+          <el-button size='small' type="danger" @click="download(scope.row)">下载</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <br>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-sizes="[1,4,6,7]"
+      :page-size="pagesize"
+      layout="total,sizes,prev,pager,next,jumper"
+      :total="tableData.length"
+    ></el-pagination>
   </div>
 </template>
 
@@ -40,7 +50,9 @@ export default {
   inject: ["reload"],
   data() {
     return {
-      tableData: []
+      tableData: [],
+      currentPage: 1, //默认页码为1
+      pagesize: 6, //默认一页显示10条
     };
   },
   mounted() {
@@ -49,6 +61,14 @@ export default {
     });
   },
   methods: {
+    handleSizeChange(size) {
+      //一页显示多少条
+      this.pagesize = size;
+    },
+    handleCurrentChange(currentPage) {
+      //页码更改方法
+      this.currentPage = currentPage;
+    },
     refresh(){
       this.reload();
     },
