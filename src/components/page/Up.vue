@@ -9,8 +9,7 @@
 
     <el-link :underline="false" type="danger">上传管理</el-link>
     <el-divider></el-divider>
-    <el-row :gutter="3">
-      <el-col :span="6">
+      <div class="input">
         <span>
           文件类型：
           <el-select placeholder="请选择" v-model="fileType">
@@ -22,8 +21,7 @@
             ></el-option>
           </el-select>
         </span>
-      </el-col>
-      <el-col :span="6">
+      
         <span>
           一级行业：
           <el-select placeholder="请选择" @change="setLevel2($event)" v-model="level1">
@@ -35,8 +33,7 @@
             ></el-option>
           </el-select>
         </span>
-      </el-col>
-      <el-col :span="6">
+      
         <span>
           二级行业：
           <el-select placeholder="请选择" v-model="level2">
@@ -48,8 +45,7 @@
             ></el-option>
           </el-select>
         </span>
-      </el-col>
-      <el-col :span="6">
+      
         <el-upload
           class="upload-demo"
           ref="upload"
@@ -58,6 +54,7 @@
           :on-remove="handleRemove"
           :file-list="fileList"
           :auto-upload="false"
+          multiple
         >
           <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
           <el-button
@@ -67,8 +64,7 @@
             @click="submitUpload"
           >上传到服务器</el-button>
         </el-upload>
-      </el-col>
-    </el-row>
+      </div>
     <!-- <div class="input">
       <span>
         文件类型：
@@ -333,9 +329,9 @@ export default {
           // console.log(prop);
            tempArray.push({label:item[2],value:item[1]})
            this.level2s=tempArray
-
         }
-      }//笨比切换实现 by lb
+      }
+      //笨比切换实现 by lb
     },
     
   }
@@ -347,7 +343,8 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 60%;
+  align-items: center;
+  width: 80%;
 }
 .head-input {
   display: flex;
