@@ -3,8 +3,11 @@ var sqlMap = {
         select: 'select * from admin where username = ?'
     },
     file: {
-        insert:'insert into file (name,time) values (?,?)',
-        select:'select * from file'
+        insert: 'insert into file (name,time,filetype,level1,level2) values (?,?,?,?,?)',
+        select: 'select * from file',
+        selectType: 'select * from filetype',
+        selectLevel1: 'select * from level1',
+        getLevel2: 'select * from level2 where parent_id= ?'
     }
 }
 
