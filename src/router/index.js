@@ -33,10 +33,6 @@ export default new Router({
           path: '/up',
           component: resolve => require(['../components/page/Up.vue'], resolve)
         },
-        {
-          path: '/search',
-          component: resolve => require(['../components/page/Search.vue'], resolve)
-        },
       ]
     }
   ]

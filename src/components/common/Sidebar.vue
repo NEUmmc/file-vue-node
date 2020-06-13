@@ -48,10 +48,6 @@ export default {
                     index: '/up',
                     title: '文件上传'
                     },
-                  {
-                    index: '/search',
-                    title: '文件查询'
-                    }
                 ]
             },
             {
@@ -112,7 +108,7 @@ export default {
         border: none;
         height: 100%;
         width: 100% !important;
-        overflow-y: auto;
+        /* overflow-y: visible; */
     }
     /* .el-submenu .el-menu-item{
       background-color: rgb(0, 8, 15)!important;
