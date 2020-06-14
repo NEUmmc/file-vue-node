@@ -124,9 +124,9 @@ export default {
   methods: {
     setUploadData(){
       this.uploadData = {
-        fileType: this.fileType.value,
-        level1: this.level1.value,
-        level2: this.level2.value
+        fileType: this.fileType.label,
+        level1: this.level1.label,
+        level2: this.level2.label,
       };
     },
     submitUpload() {
@@ -136,6 +136,7 @@ export default {
         this.$message.warning('请先选择文件')
       }
       else{
+      this.uploadData.note=this.note
       this.$refs.upload.submit();
       this.reload()
       this.$message.success("上传成功");
