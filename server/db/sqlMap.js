@@ -7,7 +7,8 @@ var sqlMap = {
         select: 'select * from file',
         selectType: 'select * from filetype',
         selectLevel1: 'select * from level1',
-        getLevel2: 'select * from level2 where parent_id= ?'
+        getLevel2: 'select * from level2 where parent_id= ?',
+        select_name: 'select * from file where name like "?%"'
     }
 }
 

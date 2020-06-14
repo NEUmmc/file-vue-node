@@ -66,6 +66,19 @@ router.post('/getFile', (req, res) => {
     })
 });
 
+router.post('/search', (req, res) => {
+    var sqlStringList = $sql.file.select_name.split('?');
+    let data = req.body.filename; 
+    var sql = sqlStringList[0] + data + sqlStringList[1]
+    conn.query(sql,(err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    })
+});
+
 router.get('/getFileType', (req, res) => {
     var sql = $sql.file.selectType;
     var data = req.body
