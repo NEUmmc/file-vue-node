@@ -27,10 +27,11 @@ router.post('/up', upload.single('file'), (req, res) => {
     var sql = $sql.file.insert;
     const name = req.file.filename
     const time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
-    const fileType=req.body.fileType
-    const level1=req.body.level1
-    const level2=req.body.level2
-    conn.query(sql, [name, time,fileType,level1,level2], (err, result) => {
+    let fileType=req.body.fileType
+    let level1=req.body.level1
+    let level2=req.body.level2
+    let note=req.body.note
+    conn.query(sql, [name,time,fileType,level1,level2,note], (err, result) => {
         if (err) {
             console.log(err);
         } else {

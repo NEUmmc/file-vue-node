@@ -19,14 +19,14 @@
 
       <span>
         一级行业：
-        <el-select placeholder="请选择" @change="setLevel2($event)" v-model="level1">
+        <el-select placeholder="请选择" @change="setLevel2" v-model="level1">
           <el-option v-for="item in level1s" :key="item.value" :label="item.label" :value="item"></el-option>
         </el-select>
       </span>
 
       <span>
         二级行业：
-        <el-select placeholder="请选择" v-model="level2">
+        <el-select placeholder="请选择" v-model="level2" @change="setUploadData">
           <el-option v-for="item in level2s" :key="item.value" :label="item.label" :value="item"></el-option>
         </el-select>
       </span>
@@ -41,10 +41,9 @@
         ref="upload"
         action="http://localhost:3000/api/file/up"
         :data="uploadData"
-        :before-upload="beforeUpload"
-        :on-preview="handlePreview"
         :on-remove="handleRemove"
         :file-list="fileList"
+        :on-change="fileChange"	
         :auto-upload="false"
         multiple
       >
@@ -109,6 +108,7 @@ export default {
     return {
       note: "",
       fileList: [],
+      count:0,
       fileType: "",
       level1: "",
       level2: "",
@@ -122,37 +122,38 @@ export default {
     };
   },
   methods: {
-    submitUpload() {
-      this.$refs.upload.submit();
-      this.reload();
-      this.$message.success("上传成功");
-    },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePreview(file) {
-      console.log(file);
-    },
-    beforeUpload() {
-      //在上传之前 设定除文件外的额外参数
-      if (this.fileType == "" || this.level1 == "" || this.level2 == "") {
-        this.$message.error("请选择标签");
-        return false;
-      }
+    setUploadData(){
       this.uploadData = {
         fileType: this.fileType.value,
         level1: this.level1.value,
         level2: this.level2.value
       };
-      console.log(this.uploadData);
-      let promise = new Promise(resolve => {
-        this.$nextTick(function() {
-          resolve(true);
-        });
-      });
-      return promise; //通过返回一个promise对象解决
     },
-    setLevel2(prop) {
+    submitUpload() {
+      if(this.level2 == '' || this.level1 == '' || this.fileType == ''){
+        this.$message.warning('标签不能为空')
+      }else if(this.count == 0){
+        this.$message.warning('请先选择文件')
+      }
+      else{
+      this.$refs.upload.submit();
+      this.reload()
+      this.$message.success("上传成功");
+      }
+    },
+    fileChange(file, fileList){
+      this.count++;
+      console.log(this.count)
+    },
+    handleRemove(file, fileList) {
+      this.count--;
+      console.log(this.count)
+    },
+    setLevel2() {
+      if(this.fileType == ''){
+        this.$message.warning('请先选择文件类型');
+        this.level1 = '';
+      }else{
       this.$post("/api/file/getLevel2", { parent_id: this.level1.value }).then(
         res => {
           let temp = [];
@@ -163,6 +164,7 @@ export default {
           this.level2s = temp;
         }
       );
+      }
     },
     /**文件列表方法*/
     handleSizeChange(size) {
