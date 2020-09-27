@@ -89,7 +89,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
- .fade-enter,.fade-leave-to{
+.fade-enter,.fade-leave-to{
   opacity: 0;
 }
 .fade-enter-active,.fade-leave-active{
