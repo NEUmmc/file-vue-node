@@ -2,7 +2,7 @@ import axios from 'axios';
 import QS from 'qs'
 
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL ='http://39.99.161.110:3002';
+axios.defaults.baseURL ='http://localhost:3000';
 
 /**
  * 封装get方法
