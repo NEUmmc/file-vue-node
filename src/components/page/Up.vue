@@ -39,7 +39,7 @@
       <el-upload
         style="width:300px"
         ref="upload"
-        action="http://localhost:3000/api/file/up"
+        action="http://39.99.161.110:3002/api/file/up"
         :data="uploadData"
         :on-remove="handleRemove"
         :file-list="fileList"
@@ -223,7 +223,7 @@ export default {
       this.reload();
     },
     download(row) {
-      let url = "http://localhost:3000/api/file/down?filename=" + row.name;
+      let url = "http://39.99.161.110:3002/api/file/down?filename=" + row.name;
       // window.open(url);//会有闪现，造成不好的用户体验
       this.downloadByIframe(url); //用户体验好但可能耗费浏览器资源，部分浏览器可能不支持
     },
